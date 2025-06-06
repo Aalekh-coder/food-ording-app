@@ -40,12 +40,15 @@ const Home = () => {
   return (
     <>
       <Navbar />
-      <div>
-        {/* hero  */}
-        <div>
-          <img src="" alt="" />
+      {/* hero  */}
+      <div className="md:flex md:px-10 md:justify-between">
+        <div className="flex items-center justify-center ">
+          <img
+            src="./plait2.jfif"
+            className="h-[50vh] md:h-[80vh] hidden lg:block lg:h-[50vh]"
+          />
         </div>
-        <div className="flex items-center flex-col mt-14 gap-3 md:gap-5">
+        <div className="flex items-center flex-col mt-5 gap-3 md:gap-5 md:w-1/2 lg:gap-5 lg:mt-24 ">
           <p className="flex items-center justify-center gap-2 bg-red-200 rounded-full w-[12rem] px-3 py-3 font-medium text-red-500">
             Within 10 Mins <Bike />
           </p>
@@ -79,10 +82,17 @@ const Home = () => {
             </Button>
           </div>
         </div>
+        <div className="flex items-center justify-center ">
+          <img
+            src="./plait-removebg-preview.png"
+            className="h-[50vh] md:h-[80vh]"
+          />
+        </div>
+      </div>
 
-        {/* second sections */}
+      {/* second sections */}
 
-        {/* <div className="border-t mt-10 border-b pb-10 mb-10">
+      <div className="border-t mt-10 border-b pb-10 mb-10">
           <p
             style={{ fontFamily: '"Roboto", sans-serif' }}
             className="font-bold text-xl text-[#333333] text-center px-4 mt-8 md:text-3xl"
@@ -138,12 +148,12 @@ const Home = () => {
               </p>
             </div>
           </div>
-        </div> */}
+        </div>
 
-        {/* third section  */}
+      {/* third section  */}
 
-        {/* <div className=" w-full text-center ">
-          <button className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5 md:scale-110">
+      <div className=" w-full text-center ">
+          <button className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5 ">
             Our Menu
           </button>
           <div className="font-bold text-[#333333] text-2xl mb-8 md:text-3xl md:flex md:flex-col">
@@ -156,17 +166,17 @@ const Home = () => {
             </span>
           </div>
 
-          <div className="flex flex-wrap my-4 gap-1 px-2 justify-center md:scale-125 md:mt-10">
-            <button className=" text-sm px-4 py-1 bg-rose-500 rounded-full font-medium text-white ">
+          <div className="flex flex-wrap my-4 gap-1 px-2 justify-center  md:mt-10">
+            <button className=" text-sm px-4 py-1 bg-rose-500 rounded-full font-medium text-white md:text-lg md:px-6 md:py-2">
               All
             </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500">
+            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
               Breakfast
             </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500">
+            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
               Lunch
             </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500">
+            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
               Dinner
             </button>
           </div>
@@ -176,8 +186,13 @@ const Home = () => {
               return <FoodCard key={index} img={foodItem?.img} title={foodItem?.title} descibe={foodItem?.describe} rate={foodItem?.rate}/>
             })}
           </div>
-        </div> */}
-      </div>
+        </div>
+
+        {/* fouth section  */}
+
+        <div className="h-[100vh] mx-3 bg-red-200 rounded-xl">
+
+        </div>
       <Footer />
     </>
   );
@@ -185,12 +200,12 @@ const Home = () => {
 
 export default Home;
 
-const FoodCard = ({img, title, descibe, rate}) => {
+const FoodCard = ({ img, title, descibe, rate }) => {
   return (
     <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
       <div>
         <span></span>
-        <img src={img} className="h-[13rem] w-full md:h-[14rem]"/>
+        <img src={img} className="h-[13rem] w-full md:h-[14rem]" />
       </div>
 
       <div className="flex items-center justify-between px-2 md:px-4">
