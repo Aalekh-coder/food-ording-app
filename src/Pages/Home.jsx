@@ -1,45 +1,36 @@
 import Footer from "@/components/Layout/Footer";
 import Navbar from "@/components/Layout/Navbar";
 import { Button } from "@/components/ui/button";
+import { foodItems, testimonials } from "@/config";
+import { OrderContext } from "@/context/Order-context";
 import {
+  ArrowRight,
   Bike,
   ShoppingBag,
-  ShoppingBasket,
   ShoppingCart,
   Star,
 } from "lucide-react";
+import { useContext } from "react";
 
 const Home = () => {
-  const foodItems = [
-    {
-      img: "https://www.secondrecipe.com/wp-content/uploads/2017/08/rajma-chawal-1.jpg",
-      title: "Rajma Chawal",
-      describe: "light, nutritious and quick-to-make Breakfast",
-      rate: 4.5,
-    },
-    {
-      img: "https://www.whiskaffair.com/wp-content/uploads/2020/06/Aloo-Paratha-2-3.jpg",
-      title: "Aloo Paratha",
-      describe: "Wholesome and delicious breakfast option",
-      rate: 4.2,
-    },
-    {
-      img: "https://www.mrishtanna.com/wp-content/uploads/2018/04/poha-indian-breakfast-recipe.jpg",
-      title: "Poha",
-      describe: "A light and flavorful breakfast dish",
-      rate: 4.0,
-    },
-    {
-      img: "https://vegecravings.com/wp-content/uploads/2017/03/Aloo-Samosa-Recipe-Step-By-Step-Instructions.jpg",
-      title: "Samosa",
-      describe: "A popular and savory snack",
-      rate: 4.3,
-    },
-  ];
+  const { order, setOrder, handleAddOrder } = useContext(OrderContext);
+
+  function calculatePrice(arr) {
+    const sum = arr.reduce((acc, curr) => {
+      return acc + curr.price;
+    }, 0);
+    return sum
+  }
+
+  const sum = order.reduce((acc, curr) => {
+    return acc + curr.price;
+  }, 0);
+
+  console.log(sum);
 
   return (
     <>
-      <Navbar />
+      <Navbar orderItem={order.length} />
       {/* hero  */}
       <div className="md:flex md:px-10 md:justify-between">
         <div className="flex items-center justify-center ">
@@ -93,106 +84,176 @@ const Home = () => {
       {/* second sections */}
 
       <div className="border-t mt-10 border-b pb-10 mb-10">
-          <p
-            style={{ fontFamily: '"Roboto", sans-serif' }}
-            className="font-bold text-xl text-[#333333] text-center px-4 mt-8 md:text-3xl"
-          >
-            Your Favorite Food in your door step in
-          </p>
-          <p
-            style={{ fontFamily: "'Caveat', cursive" }}
-            className="text-red-500 text-3xl text-center md:text-4xl"
-          >
-            just 3 steps
-          </p>
+        <p
+          style={{ fontFamily: '"Roboto", sans-serif' }}
+          className="font-bold text-xl text-[#333333] text-center px-4 mt-8 md:text-3xl"
+        >
+          Your Favorite Food in your door step in
+        </p>
+        <p
+          style={{ fontFamily: "'Caveat', cursive" }}
+          className="text-red-500 text-3xl text-center md:text-4xl"
+        >
+          just 3 steps
+        </p>
 
-          <div className="lg:grid grid-cols-3 lg:px-10">
-            <div className="my-5">
-              <img
-                src="./16485210_5739256.jpg"
-                className="lg:h-[42vh] lg:ml-5"
-              />
-              <p
-                className="font-bold text-2xl text-center text-[#333333]"
-                style={{ fontFamily: '"Roboto", sans-serif' }}
-              >
-                Step 1: Easy To Order
-              </p>
-              <p className="text-center px-2">
-                Enter you location and select your favorite food
-              </p>
-            </div>
-            <div className="my-5">
-              <img src="./6982750_3333449.jpg" alt="" />
-              <p
-                className="font-bold text-2xl text-center text-[#333333]"
-                style={{ fontFamily: '"Roboto", sans-serif' }}
-              >
-                Step 2: Fastest Delivery
-              </p>
-              <p className="text-center px-2">
-                Delivery that is always on time even faster
-              </p>
-            </div>
-            <div className="my-5">
-              <img src="./5841882_2968304.jpg" alt="" />
-              <p
-                className="font-bold text-2xl text-center text-[#333333]"
-                style={{ fontFamily: '"Roboto", sans-serif' }}
-              >
-                Step 3: Open your door
-              </p>
-              <p className="text-center px-2">
-                just open your door and enjoy your meal and give postive
-                feedback.
-              </p>
-            </div>
+        <div className="lg:grid grid-cols-3 lg:px-10">
+          <div className="my-5">
+            <img src="./16485210_5739256.jpg" className="lg:h-[42vh] lg:ml-5" />
+            <p
+              className="font-bold text-2xl text-center text-[#333333]"
+              style={{ fontFamily: '"Roboto", sans-serif' }}
+            >
+              Step 1: Easy To Order
+            </p>
+            <p className="text-center px-2">
+              Enter you location and select your favorite food
+            </p>
+          </div>
+          <div className="my-5">
+            <img src="./6982750_3333449.jpg" alt="" />
+            <p
+              className="font-bold text-2xl text-center text-[#333333]"
+              style={{ fontFamily: '"Roboto", sans-serif' }}
+            >
+              Step 2: Fastest Delivery
+            </p>
+            <p className="text-center px-2">
+              Delivery that is always on time even faster
+            </p>
+          </div>
+          <div className="my-5">
+            <img src="./5841882_2968304.jpg" alt="" />
+            <p
+              className="font-bold text-2xl text-center text-[#333333]"
+              style={{ fontFamily: '"Roboto", sans-serif' }}
+            >
+              Step 3: Open your door
+            </p>
+            <p className="text-center px-2">
+              just open your door and enjoy your meal and give postive feedback.
+            </p>
           </div>
         </div>
+      </div>
 
       {/* third section  */}
 
-      <div className=" w-full text-center ">
-          <button className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5 ">
-            Our Menu
+      <div className=" w-full text-center border-b lg:pb-14">
+        <button className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5 ">
+          Our Menu
+        </button>
+        <div className="font-bold text-[#333333] text-2xl mb-8 md:text-3xl md:flex md:flex-col">
+          Choose your favorite dish and Click to{" "}
+          <span
+            className="text-rose-500 text-2xl md:text-4xl"
+            style={{ fontFamily: "'Caveat', cursive" }}
+          >
+            Order Now
+          </span>
+        </div>
+
+        <div className="flex flex-wrap my-4 gap-1 px-2 justify-center  md:mt-10">
+          <button className=" text-sm px-4 py-1 bg-rose-500 rounded-full font-medium text-white md:text-lg md:px-6 md:py-2">
+            All
           </button>
-          <div className="font-bold text-[#333333] text-2xl mb-8 md:text-3xl md:flex md:flex-col">
-            Choose your favorite dish and Click to{" "}
-            <span
-              className="text-rose-500 text-2xl md:text-4xl"
-              style={{ fontFamily: "'Caveat', cursive" }}
-            >
-              Order Now
-            </span>
-          </div>
-
-          <div className="flex flex-wrap my-4 gap-1 px-2 justify-center  md:mt-10">
-            <button className=" text-sm px-4 py-1 bg-rose-500 rounded-full font-medium text-white md:text-lg md:px-6 md:py-2">
-              All
-            </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
-              Breakfast
-            </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
-              Lunch
-            </button>
-            <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
-              Dinner
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4">
-            {foodItems?.map((foodItem, index) => {
-              return <FoodCard key={index} img={foodItem?.img} title={foodItem?.title} descibe={foodItem?.describe} rate={foodItem?.rate}/>
-            })}
-          </div>
+          <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
+            Breakfast
+          </button>
+          <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
+            Lunch
+          </button>
+          <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
+            Dinner
+          </button>
         </div>
 
-        {/* fouth section  */}
-
-        <div className="h-[100vh] mx-3 bg-red-200 rounded-xl">
-
+        <div className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4">
+          {foodItems?.map((foodItem, index) => {
+            return (
+              <FoodCard
+                key={index}
+                img={foodItem?.img}
+                title={foodItem?.title}
+                descibe={foodItem?.describe}
+                rate={foodItem?.rate}
+                addOrder={() => handleAddOrder(foodItem)}
+                price={foodItem?.price}
+                discountedPrice={foodItem?.discountedPrice}
+              />
+            );
+          })}
         </div>
+      </div>
+
+      {/* fouth section  */}
+
+      <div className="lg:my-20 mx-3 bg-red-200 rounded-xl px-4 py-5 my-10 lg:flex lg:items-center lg:mx-14 lg:py-8 lg:px-20  ">
+        <div className="lg:w-1/2">
+          <p
+            className="font-bold text-3xl text-red-500 lg:text-5xl lg:my-5"
+            style={{ fontFamily: "'Caveat', cursive" }}
+          >
+            The Masala Story
+          </p>
+          <p className="font-semibold text-[#333] lg:text-lg">
+            Our values at The Masala Story are simple: we're passionate about
+            bringing you the most authentic and flavorful Indian dishes. We
+            believe in using only the freshest, highest-quality ingredients,
+            prepared with traditional techniques and a touch of culinary
+            innovation. We're committed to creating a warm, inviting atmosphere
+            where every meal is a celebration of India's rich culinary heritage.
+            Your satisfaction and a memorable dining experience are at the heart
+            of everything we do.
+          </p>
+          <button className="flex items-center gap-3 bg-rose-500 px-4 py-2 rounded-full font-medium text-white my-5">
+            Try Now <ArrowRight />
+          </button>
+        </div>
+        <div className="bg-rose-500 rounded-tl-full rounded-lg flex items-center justify-center lg:w-1/2 lg:bg-transparent">
+          <img
+            src="./chef.png"
+            alt="chef"
+            className="lg:h-[50vh] lg:bg-rose-500 lg:rounded-tl-full lg:pl-24"
+          />
+        </div>
+      </div>
+
+      {/* five section  */}
+
+      <div className="border-t py-10">
+        <div className="text-center">
+          <button className="px-3 py-2 bg-red-200 text-red-500 font-medium rounded-full my-3 md:text-xl md:px-5 ">
+            Testimonials
+          </button>
+
+          <p
+            className="font-bold text-2xl text-[#333] mb-1 md:text-3xl lg:text-4xl"
+            style={{ fontFamily: '"Roboto", sans-serif' }}
+          >
+            What Our Customers Say
+          </p>
+          <p
+            className="font-bold text-3xl text-red-500 lg:text-5xl lg:my-2"
+            style={{ fontFamily: "'Caveat', cursive" }}
+          >
+            About Us
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:px-5 lg:px-10 border-b lg:pb-10">
+          {testimonials?.map((item, index) => {
+            return (
+              <TestimonialCard
+                descibe={item?.descibe}
+                img={item?.img}
+                name={item?.name}
+                key={index}
+              />
+            );
+          })}
+        </div>
+      </div>
       <Footer />
     </>
   );
@@ -200,11 +261,22 @@ const Home = () => {
 
 export default Home;
 
-const FoodCard = ({ img, title, descibe, rate }) => {
+const FoodCard = ({
+  img,
+  title,
+  descibe,
+  rate,
+  addOrder,
+  price,
+  discountedPrice,
+}) => {
   return (
     <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
-      <div>
-        <span></span>
+      <div className="relative">
+        <span className="bg-red-500 absolute flex items-center text-white px-4 py-3 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 gap-2 rounded-ee-full">
+          <p className="text-sm line-through">₹{price ? price : "200"}</p>
+          <p>₹{discountedPrice ? discountedPrice : "200"}/Plate</p>
+        </span>
         <img src={img} className="h-[13rem] w-full md:h-[14rem]" />
       </div>
 
@@ -226,13 +298,53 @@ const FoodCard = ({ img, title, descibe, rate }) => {
 
       <p className="text-left px-2 mb-3 font-semibold md:px-4">{descibe}</p>
       <div className="flex items-center justify-between px-3">
-        <button className="flex items-center px-5 py-2 bg-red-500 rounded-full text-white gap-2 font-semibold">
+        <button
+          onClick={addOrder}
+          className="flex items-center px-5 py-2 bg-red-500 rounded-full text-white gap-2 font-semibold"
+        >
           <ShoppingBag size={20} /> Order Now
         </button>
 
         <div className="bg-red-300 p-2 rounded-full text-rose-500">
           <ShoppingCart className="" />
         </div>
+      </div>
+    </div>
+  );
+};
+
+const TestimonialCard = ({ img, name, descibe }) => {
+  return (
+    <div className="border mx-3 my-8 rounded-xl p-4 bg-gradient-to-b to-rose-400 from-rose-100">
+      <img
+        className="h-20 w-20 rounded-full"
+        src={
+          img
+            ? img
+            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7DCs0RF4l146RPy1fxiLnhtAd411t4Ptv6A&s"
+        }
+        alt="profile image"
+      />
+      <p
+        className="font-medium text-rose-500 text-2xl my-2"
+        style={{ fontFamily: "'Caveat', cursive" }}
+      >
+        {name ? name : "Neha, Project"}
+      </p>
+      <p
+        style={{ fontFamily: '"Roboto", sans-serif' }}
+        className="text-white font-bold"
+      >
+        {descibe
+          ? descibe
+          : "Fantastic Service! The Food was amazing, delivery boy was very king and services was very fast, Highly recommed!"}
+      </p>
+      <div className="flex items-center gap-2 my-2">
+        <Star fill="#ffee00" className="text-[#ffee00]" />
+        <Star fill="#ffee00" className="text-[#ffee00]" />
+        <Star fill="#ffee00" className="text-[#ffee00]" />
+        <Star fill="#ffee00" className="text-[#ffee00]" />
+        <Star fill="#ffee00" className="text-[#ffee00]" />
       </div>
     </div>
   );
