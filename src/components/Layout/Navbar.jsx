@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router";
 const Navbar = ({ orderItem }) => {
   const { order, setOrder, handleAddOrder } = useContext(OrderContext);
 
-  
+ 
 
   return (
     <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:mt-5">
@@ -41,23 +41,40 @@ const Navbar = ({ orderItem }) => {
                   );
                 })
               ) : (
-                <div>Please put Order</div>
+                <div className="px-5 ">
+                  <img
+                    src="./food-order-gif.gif"
+                    alt="chife"
+                    className="rounded-xl"
+                  />
+
+                  <p
+                    className="font-bold text-3xl text-rose-500"
+                    style={{ fontFamily: "'Caveat', cursive" }}
+                  >
+                    Please Put Some meals to your Cart
+                  </p>
+                </div>
               )}
             </div>
           </div>
 
-         {order && order?.length ? <Link to={"/payment"} className=" w-full  flex items-center justify-center">
-            <button
-              
-              style={{ fontFamily: '"Roboto", sans-serif' }}
-              className="bg-blue-800 font-bold text-white mx-4 px-14 py-2 rounded-full"
+          {order && order?.length ? (
+            <Link
+              to={"/payment"}
+              className=" w-full  flex items-center justify-center"
             >
-              Pay ₹ {" "}
-              {order.reduce((acc, curr) => {
-                return acc + curr.price;
-              }, 0)}
-            </button>
-          </Link>:null}
+              <button
+                style={{ fontFamily: '"Roboto", sans-serif' }}
+                className="bg-blue-800 font-bold text-white mx-4 px-14 py-2 rounded-full"
+              >
+                Pay ₹{" "}
+                {order.reduce((acc, curr) => {
+                  return acc + curr.price;
+                }, 0)}
+              </button>
+            </Link>
+          ) : null}
         </SheetContent>
       </Sheet>
     </div>
@@ -66,7 +83,17 @@ const Navbar = ({ orderItem }) => {
 
 export default Navbar;
 
-const FoodItem = ({ img, title, qty = 1 }) => {
+const FoodItem = ({ img, title, qty }) => {
+  const { order, setOrder,handleAddItemInCart } = useContext(OrderContext);
+
+  
+    function handleAddQty(qty){
+      // setOrder(order[0].qty + 1)
+        // console.log(order[0].qty);
+    }
+  
+    function handleSubQty(){
+    }
   return (
     <div className="my-3 h-[13vh]  rounded-full flex items-center px-3 gap-3 pl-3 shadow-lg mx-2 md:mx-8 ">
       <div>
@@ -82,11 +109,11 @@ const FoodItem = ({ img, title, qty = 1 }) => {
       <div>
         <p className="font-medium text-lg">{title ? title : "Rajma Chawal"}</p>
         <div className="flex items-center gap-5 px-2">
-          <div className="border-green-400 border-2 rounded-full">
+          <div className="border-green-400 border-2 rounded-full" onClick={handleAddQty}>
             <Plus />
           </div>
           <div className="font-medium text-2xl">{qty ? qty : "1"}</div>
-          <div className="border-red-400 border-2 rounded-full">
+          <div className="border-red-400 border-2 rounded-full" onClick={handleSubQty}>
             <Minus />
           </div>
         </div>
@@ -95,8 +122,4 @@ const FoodItem = ({ img, title, qty = 1 }) => {
   );
 };
 
-{
-  /* <button  style={{ fontFamily: '"Roboto", sans-serif' }} className="bg-blue-500 font-bold text-white mx-4 px-5 py-2 rounded-full">Pay {order.reduce((acc, curr) => {
-                return acc + curr.price;
-              }, 0)}</button> */
-}
+

@@ -5,7 +5,8 @@ export const foodItems = [
     describe: "light, nutritious and quick-to-make Breakfast",
     rate: 4.5,
     price: 120, // Example price in INR
-    discountedPrice: 100, // Example discounted price in INR
+    discountedPrice: 100,
+    qty:1 // Example discounted price in INR
   },
   {
     img: "https://www.whiskaffair.com/wp-content/uploads/2020/06/Aloo-Paratha-2-3.jpg",
@@ -14,6 +15,7 @@ export const foodItems = [
     rate: 4.2,
     price: 80,
     discountedPrice: 70,
+     qty:1
   },
   {
     img: "https://www.mrishtanna.com/wp-content/uploads/2018/04/poha-indian-breakfast-recipe.jpg",
@@ -22,6 +24,7 @@ export const foodItems = [
     rate: 4.0,
     price: 70,
     discountedPrice: 60,
+     qty:1
   },
   {
     img: "https://vegecravings.com/wp-content/uploads/2017/03/Aloo-Samosa-Recipe-Step-By-Step-Instructions.jpg",
@@ -30,6 +33,7 @@ export const foodItems = [
     rate: 4.3,
     price: 30, // Price per piece or per plate, depending on how you sell it
     discountedPrice: 25,
+     qty:1
   },
 ];
 

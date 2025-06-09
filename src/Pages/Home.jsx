@@ -13,20 +13,10 @@ import {
 import { useContext } from "react";
 
 const Home = () => {
-  const { order, setOrder, handleAddOrder } = useContext(OrderContext);
+  const { order,handleAddOrder } = useContext(OrderContext);
 
-  function calculatePrice(arr) {
-    const sum = arr.reduce((acc, curr) => {
-      return acc + curr.price;
-    }, 0);
-    return sum
-  }
 
-  const sum = order.reduce((acc, curr) => {
-    return acc + curr.price;
-  }, 0);
 
-  console.log(sum);
 
   return (
     <>
@@ -66,7 +56,7 @@ const Home = () => {
             <input
               type="text"
               placeholder="Enter your delivery location"
-              className="placeholder:text-gray-400 placeholder:text-[14px] px-4 "
+              className="placeholder:text-gray-400 placeholder:text-[14px] px-4 border-none focus:outline-none font-semibold text-rose-700"
             />
             <Button className="rounded-full bg-red-500 px-3 py-2">
               Order Now
@@ -180,6 +170,7 @@ const Home = () => {
                 addOrder={() => handleAddOrder(foodItem)}
                 price={foodItem?.price}
                 discountedPrice={foodItem?.discountedPrice}
+                qty={foodItem?.qty}
               />
             );
           })}
@@ -269,6 +260,7 @@ const FoodCard = ({
   addOrder,
   price,
   discountedPrice,
+  qty
 }) => {
   return (
     <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
@@ -306,7 +298,7 @@ const FoodCard = ({
         </button>
 
         <div className="bg-red-300 p-2 rounded-full text-rose-500">
-          <ShoppingCart className="" />
+         { <ShoppingCart className="" /> || qty}
         </div>
       </div>
     </div>

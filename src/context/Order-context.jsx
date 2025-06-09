@@ -11,7 +11,12 @@ export default function OrderProvider({children}){
        setOrder([item,...order])
     }
 
+    function handleAddItemInCart(item){
+        console.log(item+1);
+        
+    }
+
     return (
-        <OrderContext.Provider value={{order, setOrder,handleAddOrder}}>{children}</OrderContext.Provider>
+        <OrderContext.Provider value={{order, setOrder,handleAddOrder,handleAddItemInCart}}>{children}</OrderContext.Provider>
     )
 }
