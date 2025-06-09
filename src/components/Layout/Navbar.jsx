@@ -1,4 +1,4 @@
-import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { Minus, Plus, ShoppingCart, Vault } from "lucide-react";
 import React, { useContext } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { OrderContext } from "@/context/Order-context";
@@ -7,7 +7,19 @@ import { Link, useNavigate } from "react-router";
 const Navbar = ({ orderItem }) => {
   const { order, setOrder, handleAddOrder } = useContext(OrderContext);
 
- 
+  function handleItemIndex(index) {
+    console.log(index);
+  }
+
+const removeDuplicates = (foodItems) => {
+  return foodItems.filter((item, index, self) =>
+    index === self.findIndex((t) => (
+      t.title === item.title
+    ))
+  )
+}
+
+let ordered=removeDuplicates(order)
 
   return (
     <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:mt-5">
@@ -34,10 +46,16 @@ const Navbar = ({ orderItem }) => {
             </p>
 
             <div className="overflow-y-auto h-[65vh]">
-              {order && order.length ? (
-                order?.map((item, index) => {
+              {ordered && ordered.length ? (
+                ordered?.map((item, index) => {
                   return (
-                    <FoodItem img={item?.img} title={item?.title} key={index} />
+                    <FoodItem
+                      img={item?.img}
+                      title={item?.title}
+                      key={index}
+                      qty={item?.qty}
+                      // functiuon={() => handleItemIndex(order[index])}
+                    />
                   );
                 })
               ) : (
@@ -83,17 +101,9 @@ const Navbar = ({ orderItem }) => {
 
 export default Navbar;
 
-const FoodItem = ({ img, title, qty }) => {
-  const { order, setOrder,handleAddItemInCart } = useContext(OrderContext);
+const FoodItem = ({ img, title, qty, functiuon }) => {
+  const { order } = useContext(OrderContext);
 
-  
-    function handleAddQty(qty){
-      // setOrder(order[0].qty + 1)
-        // console.log(order[0].qty);
-    }
-  
-    function handleSubQty(){
-    }
   return (
     <div className="my-3 h-[13vh]  rounded-full flex items-center px-3 gap-3 pl-3 shadow-lg mx-2 md:mx-8 ">
       <div>
@@ -108,18 +118,19 @@ const FoodItem = ({ img, title, qty }) => {
       </div>
       <div>
         <p className="font-medium text-lg">{title ? title : "Rajma Chawal"}</p>
-        <div className="flex items-center gap-5 px-2">
-          <div className="border-green-400 border-2 rounded-full" onClick={handleAddQty}>
+        {/* <div className="flex items-center gap-5 px-2">
+          <div
+            className="border-green-400 border-2 rounded-full"
+            onClick={() => functiuon()}
+          >
             <Plus />
           </div>
-          <div className="font-medium text-2xl">{qty ? qty : "1"}</div>
-          <div className="border-red-400 border-2 rounded-full" onClick={handleSubQty}>
+          <div className="font-medium text-2xl">{qty}</div>
+          <div className="border-red-400 border-2 rounded-full">
             <Minus />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 };
-
-

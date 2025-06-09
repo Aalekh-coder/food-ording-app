@@ -11,8 +11,8 @@ export default function OrderProvider({children}){
        setOrder([item,...order])
     }
 
-    function handleAddItemInCart(item){
-        console.log(item+1);
+    function handleAddItemInCart(){
+        console.log("hello");
         
     }
 
