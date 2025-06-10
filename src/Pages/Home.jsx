@@ -11,25 +11,39 @@ import {
   Star,
 } from "lucide-react";
 import { useContext } from "react";
+import { easeInOut, motion } from "motion/react";
 
 const Home = () => {
-  const { order,handleAddOrder } = useContext(OrderContext);
-
-
-
+  const { order, handleAddOrder } = useContext(OrderContext);
 
   return (
     <>
       <Navbar orderItem={order.length} />
       {/* hero  */}
-      <div className="md:flex md:px-10 md:justify-between">
-        <div className="flex items-center justify-center ">
+      <div className="md:flex md:px-10 md:justify-between overflow-hidden lg:mt-20">
+        <motion.div
+          className="flex items-center justify-center "
+          initial={{ x: -50 }}
+          whileInView={{ x: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+          }}
+          whileHover={{
+            rotate: 5,
+            scale: 1.05,
+          }}
+        >
           <img
-            src="./plait2.jfif"
-            className="h-[50vh] md:h-[80vh] hidden lg:block lg:h-[50vh]"
+            src="./butterchick-removebg-preview.png"
+            className="h-[50vh] md:h-[80vh] hidden lg:block lg:h-[45vh]"
           />
-        </div>
-        <div className="flex items-center flex-col mt-5 gap-3 md:gap-5 md:w-1/2 lg:gap-5 lg:mt-24 ">
+        </motion.div>
+        <motion.div
+          className="flex items-center flex-col mt-5 gap-3 md:gap-5 md:w-1/2 lg:gap-5 lg:mt-24"
+          initial={{ y: -50 }}
+          whileInView={{ y: 0 }}
+        >
           <p className="flex items-center justify-center gap-2 bg-red-200 rounded-full w-[12rem] px-3 py-3 font-medium text-red-500">
             Within 10 Mins <Bike />
           </p>
@@ -52,7 +66,7 @@ const Home = () => {
             Our job is give you amazing taste with less then 10 mins
           </p>
 
-          <div className="border rounded-full px-1 py-1 shadow-lg shadow-rose-300">
+          <div className="border rounded-full px-1 py-1 shadow-lg shadow-rose-300 hover:shadow-rose-500 duration-200">
             <input
               type="text"
               placeholder="Enter your delivery location"
@@ -62,32 +76,57 @@ const Home = () => {
               Order Now
             </Button>
           </div>
-        </div>
-        <div className="flex items-center justify-center ">
-          <img
-            src="./plait-removebg-preview.png"
-            className="h-[50vh] md:h-[80vh]"
-          />
-        </div>
+        </motion.div>
+        <motion.div
+          className="flex items-center justify-center"
+          initial={{ x: 50 }}
+          whileInView={{ x: 0 }}
+          transition={{
+            duration: 0.4,
+            ease: "easeInOut",
+          }}
+          whileHover={{
+            rotate: 5,
+            scale: 1.05,
+          }}
+        >
+          <img src="./rajma.png" className="h-[50vh] md:h-[80vh] lg:h-[70vh]" />
+        </motion.div>
       </div>
 
       {/* second sections */}
 
-      <div className="border-t mt-10 border-b pb-10 mb-10">
-        <p
+      <div className="border-t mt-10 border-b pb-10 mb-10 overflow-hidden">
+        <motion.p
+          initial={{ y: -100 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.2 }}
           style={{ fontFamily: '"Roboto", sans-serif' }}
           className="font-bold text-xl text-[#333333] text-center px-4 mt-8 md:text-3xl"
         >
           Your Favorite Food in your door step in
-        </p>
-        <p
+        </motion.p>
+        <motion.p
           style={{ fontFamily: "'Caveat', cursive" }}
           className="text-red-500 text-3xl text-center md:text-4xl"
+          initial={{ y: -30 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.3 }}
         >
           just 3 steps
-        </p>
+        </motion.p>
 
-        <div className="lg:grid grid-cols-3 lg:px-10">
+        <motion.div
+          className="lg:grid grid-cols-3 lg:px-10"
+          initial={{ x: -30 }}
+          whileInView={{
+            x: 0,
+          }}
+          transition={{
+            duration: 0.2,
+            ease: easeInOut,
+          }}
+        >
           <div className="my-5">
             <img src="./16485210_5739256.jpg" className="lg:h-[42vh] lg:ml-5" />
             <p
@@ -124,16 +163,26 @@ const Home = () => {
               just open your door and enjoy your meal and give postive feedback.
             </p>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* third section  */}
 
-      <div className=" w-full text-center border-b lg:pb-14">
-        <button className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5 ">
+      <div className=" w-full text-center border-b lg:pb-14 overflow-hidden">
+        <motion.button
+          className="px-4 py-2 bg-red-200 rounded-full font-medium text-red-400 mb-5"
+          initial={{ y: -100 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           Our Menu
-        </button>
-        <div className="font-bold text-[#333333] text-2xl mb-8 md:text-3xl md:flex md:flex-col">
+        </motion.button>
+        <motion.div
+          initial={{ y: -100 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.2 }}
+          className="font-bold text-[#333333] text-2xl mb-8 md:text-3xl md:flex md:flex-col"
+        >
           Choose your favorite dish and Click to{" "}
           <span
             className="text-rose-500 text-2xl md:text-4xl"
@@ -141,9 +190,14 @@ const Home = () => {
           >
             Order Now
           </span>
-        </div>
+        </motion.div>
 
-        <div className="flex flex-wrap my-4 gap-1 px-2 justify-center  md:mt-10">
+        <motion.div
+          initial={{ x: -100 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 0.2 }}
+          className="flex flex-wrap my-4 gap-1 px-2 justify-center  md:mt-10"
+        >
           <button className=" text-sm px-4 py-1 bg-rose-500 rounded-full font-medium text-white md:text-lg md:px-6 md:py-2">
             All
           </button>
@@ -156,9 +210,14 @@ const Home = () => {
           <button className=" text-sm px-4 py-1 bg-rose-200 rounded-full font-medium text-red-500 md:text-lg md:px-6 md:py-2">
             Dinner
           </button>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4">
+        <motion.div
+          initial={{ x: -100 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4"
+        >
           {foodItems?.map((foodItem, index) => {
             return (
               <FoodCard
@@ -174,13 +233,18 @@ const Home = () => {
               />
             );
           })}
-        </div>
+        </motion.div>
       </div>
 
       {/* fouth section  */}
 
-      <div className="lg:my-20 mx-3 bg-red-200 rounded-xl px-4 py-5 my-10 lg:flex lg:items-center lg:mx-14 lg:py-8 lg:px-20  ">
-        <div className="lg:w-1/2">
+      <div className="lg:my-20 mx-3 bg-red-200 rounded-xl px-4 py-5 my-10 lg:flex lg:items-center lg:mx-14 lg:py-8 lg:px-20 overflow-hidden">
+        <motion.div
+          className="lg:w-1/2"
+          initial={{ x: -100 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <p
             className="font-bold text-3xl text-red-500 lg:text-5xl lg:my-5"
             style={{ fontFamily: "'Caveat', cursive" }}
@@ -200,20 +264,30 @@ const Home = () => {
           <button className="flex items-center gap-3 bg-rose-500 px-4 py-2 rounded-full font-medium text-white my-5">
             Try Now <ArrowRight />
           </button>
-        </div>
-        <div className="bg-rose-500 rounded-tl-full rounded-lg flex items-center justify-center lg:w-1/2 lg:bg-transparent">
+        </motion.div>
+        <motion.div
+          initial={{ x: 100 }}
+          whileInView={{ x: 0 }}
+          transition={{ duration: 0.2 }}
+          className="bg-rose-500 rounded-tl-full rounded-lg flex items-center justify-center lg:w-1/2 lg:bg-transparent"
+        >
           <img
             src="./chef.png"
             alt="chef"
             className="lg:h-[50vh] lg:bg-rose-500 lg:rounded-tl-full lg:pl-24"
           />
-        </div>
+        </motion.div>
       </div>
 
       {/* five section  */}
 
       <div className="border-t py-10">
-        <div className="text-center">
+        <motion.div
+          className="text-center"
+          initial={{ y: 100 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.2 }}
+        >
           <button className="px-3 py-2 bg-red-200 text-red-500 font-medium rounded-full my-3 md:text-xl md:px-5 ">
             Testimonials
           </button>
@@ -230,9 +304,14 @@ const Home = () => {
           >
             About Us
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:px-5 lg:px-10 border-b lg:pb-10">
+        <motion.div
+          initial={{ y: 100 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 md:px-5 lg:px-10 border-b lg:pb-10"
+        >
           {testimonials?.map((item, index) => {
             return (
               <TestimonialCard
@@ -243,7 +322,7 @@ const Home = () => {
               />
             );
           })}
-        </div>
+        </motion.div>
       </div>
       <Footer />
     </>
@@ -260,10 +339,10 @@ const FoodCard = ({
   addOrder,
   price,
   discountedPrice,
-  qty
+  qty,
 }) => {
   return (
-    <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
+    <div  className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
       <div className="relative">
         <span className="bg-red-500 absolute flex items-center text-white px-4 py-3 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 gap-2 rounded-ee-full">
           <p className="text-sm line-through">₹{price ? price : "200"}</p>
@@ -298,7 +377,7 @@ const FoodCard = ({
         </button>
 
         <div className="bg-red-300 p-2 rounded-full text-rose-500">
-         { <ShoppingCart className="" /> || qty}
+          {<ShoppingCart className="" /> || qty}
         </div>
       </div>
     </div>

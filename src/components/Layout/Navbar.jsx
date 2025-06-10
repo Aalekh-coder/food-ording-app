@@ -3,29 +3,29 @@ import React, { useContext } from "react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { OrderContext } from "@/context/Order-context";
 import { Link, useNavigate } from "react-router";
+import {motion} from "motion/react"
 
 const Navbar = ({ orderItem }) => {
   const { order, setOrder, handleAddOrder } = useContext(OrderContext);
 
   function handleItemIndex(index) {
-    console.log(index);
+    console.log(index)
+  
   }
 
-const removeDuplicates = (foodItems) => {
-  return foodItems.filter((item, index, self) =>
-    index === self.findIndex((t) => (
-      t.title === item.title
-    ))
-  )
-}
 
-let ordered=removeDuplicates(order)
+
 
   return (
-    <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:mt-5">
-      <div style={{ fontFamily: "'Caveat', cursive" }} className="text-3xl">
+    <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5 fixed top-0  z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+      <motion.div whileHover={{
+        scale:1.2,
+        rotate:2,
+      }} style={{ fontFamily: "'Caveat', cursive" }} className="text-3xl ">
+        <Link to={"/"}>
         Masala Story
-      </div>
+        </Link>
+      </motion.div>
 
       <Sheet>
         <SheetTrigger>
@@ -46,15 +46,16 @@ let ordered=removeDuplicates(order)
             </p>
 
             <div className="overflow-y-auto h-[65vh]">
-              {ordered && ordered.length ? (
-                ordered?.map((item, index) => {
+              {order && order.length ? (
+                order?.map((item, index) => {
+                  
                   return (
                     <FoodItem
                       img={item?.img}
                       title={item?.title}
                       key={index}
                       qty={item?.qty}
-                      // functiuon={() => handleItemIndex(order[index])}
+                      functiuon={() => handleItemIndex(order[index])}
                     />
                   );
                 })
@@ -118,7 +119,7 @@ const FoodItem = ({ img, title, qty, functiuon }) => {
       </div>
       <div>
         <p className="font-medium text-lg">{title ? title : "Rajma Chawal"}</p>
-        {/* <div className="flex items-center gap-5 px-2">
+        <div className="flex items-center gap-5 px-2">
           <div
             className="border-green-400 border-2 rounded-full"
             onClick={() => functiuon()}
@@ -129,7 +130,7 @@ const FoodItem = ({ img, title, qty, functiuon }) => {
           <div className="border-red-400 border-2 rounded-full">
             <Minus />
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

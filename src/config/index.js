@@ -4,32 +4,32 @@ export const foodItems = [
     title: "Rajma Chawal",
     describe: "light, nutritious and quick-to-make Breakfast",
     rate: 4.5,
-    price: 120, // Example price in INR
+    price: 120, 
     discountedPrice: 100,
-    qty:1 // Example discounted price in INR
+    qty:1 
   },
   {
-    img: "https://www.whiskaffair.com/wp-content/uploads/2020/06/Aloo-Paratha-2-3.jpg",
-    title: "Aloo Paratha",
-    describe: "Wholesome and delicious breakfast option",
+    img: "https://i.pinimg.com/736x/42/8c/68/428c68beb709830c29f7a80591f94de4.jpg",
+    title: "Veg Biriyani",
+    describe: "Our Veg Biryani is a delightful Indian classic.",
     rate: 4.2,
     price: 80,
     discountedPrice: 70,
      qty:1
   },
   {
-    img: "https://www.mrishtanna.com/wp-content/uploads/2018/04/poha-indian-breakfast-recipe.jpg",
-    title: "Poha",
-    describe: "A light and flavorful breakfast dish",
+    img: "https://i.pinimg.com/736x/ba/5e/0f/ba5e0f0130bd14c081892c72ffd765ee.jpg",
+    title: "Lumb Curry",
+    describe: "Succulent lamb, slow-cooked in rich, aromatic Indian spices.",
     rate: 4.0,
     price: 70,
     discountedPrice: 60,
      qty:1
   },
   {
-    img: "https://vegecravings.com/wp-content/uploads/2017/03/Aloo-Samosa-Recipe-Step-By-Step-Instructions.jpg",
-    title: "Samosa",
-    describe: "A popular and savory snack",
+    img: "https://i.pinimg.com/736x/98/0d/06/980d06b003447de5b56cb41574d63e2d.jpg",
+    title: "Butter Chicken",
+    describe: "Creamy tomato, butter, and spice-infused chicken.",
     rate: 4.3,
     price: 30, // Price per piece or per plate, depending on how you sell it
     discountedPrice: 25,
