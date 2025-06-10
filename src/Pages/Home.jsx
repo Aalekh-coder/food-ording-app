@@ -20,7 +20,7 @@ const Home = () => {
     <>
       <Navbar orderItem={order.length} />
       {/* hero  */}
-      <div className="md:flex md:px-10 md:justify-between overflow-hidden lg:mt-20">
+      <div className="mt-20 md:flex md:px-10 md:justify-between overflow-hidden lg:mt-20">
         <motion.div
           className="flex items-center justify-center "
           initial={{ x: -50 }}

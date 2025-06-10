@@ -17,7 +17,7 @@ const Navbar = ({ orderItem }) => {
 
 
   return (
-    <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5 fixed top-0  z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
+    <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5  fixed top-0 z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
       <motion.div whileHover={{
         scale:1.2,
         rotate:2,
