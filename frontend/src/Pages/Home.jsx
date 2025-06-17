@@ -10,30 +10,33 @@ import {
   ShoppingCart,
   Star,
 } from "lucide-react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { easeInOut, motion } from "motion/react";
 import { fetchAllFoodItems } from "@/api";
+import FoodCard from "@/components/subcomponents/FoodCard";
+import TestimonialCard from "@/components/subcomponents/TestimonialCard";
 
 const Home = () => {
-  const { order, handleAddOrder, foodItem, setfoodItem } =
+  const { handleAddOrder,foodItemsData,cart} =
     useContext(OrderContext);
 
-  useEffect(() => {
-    const getFoodItems = async () => {
-      try {
-        const foodItems = await fetchAllFoodItems();
-        setfoodItem(foodItems?.data);
-      } catch (error) {
-        console.error("Error fetching food items:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const getFoodItems = async () => {
+  //     try {
+  //       const foodItems = await fetchAllFoodItems();
+  //       setfoodItem(foodItems?.data);
+  //     } catch (error) {
+  //       console.error("Error fetching food items:", error);
+  //     }
+  //   };
 
-    getFoodItems();
-  }, []);
+  //   getFoodItems();
+  // }, []);
+
 
   return (
     <>
-      <Navbar orderItem={order.length} />
+      <Navbar orderItem={5} />
       {/* hero  */}
       <div className="mt-20 md:flex md:px-10 md:justify-between overflow-hidden lg:mt-20">
         <motion.div
@@ -233,8 +236,8 @@ const Home = () => {
           transition={{ duration: 0.4 }}
           className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4"
         >
-          {foodItem && foodItem?.length ? (
-            foodItem?.map((foodItem, index) => {
+          {foodItemsData && foodItemsData?.length ? (
+            foodItemsData?.map((foodItem, index) => {
               return (
                 <FoodCard
                   key={index}
@@ -242,9 +245,7 @@ const Home = () => {
                   title={foodItem?.foodName}
                   descibe={foodItem?.foodDescription}
                   rate={foodItem?.rate}
-                  addOrder={() =>
-                    handleAddOrder(foodItem?._id, 1, foodItem?.image)
-                  }
+                  addOrder={() => handleAddOrder(foodItem)}
                   price={foodItem?.price}
                   discountedPrice={foodItem?.discountedPrice}
                   qty={foodItem?.qty}
@@ -351,93 +352,3 @@ const Home = () => {
 };
 
 export default Home;
-
-const FoodCard = ({
-  img,
-  title,
-  descibe,
-  rate,
-  addOrder,
-  price,
-  discountedPrice,
-  qty,
-}) => {
-  return (
-    <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
-      <div className="relative">
-        <span className="bg-red-500 absolute flex items-center text-white px-4 py-3 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 gap-2 rounded-ee-full">
-          <p className="text-sm line-through">₹{price ? price : "200"}</p>
-          <p>₹{discountedPrice ? discountedPrice : "200"}/Plate</p>
-        </span>
-        <img src={img} className="h-[13rem] w-full md:h-[14rem]" />
-      </div>
-
-      <div className="flex items-center justify-between px-2 md:px-4">
-        <div
-          className="font-medium my-3 text-lg"
-          style={{ fontFamily: '"Roboto", sans-serif' }}
-        >
-          {title}
-        </div>
-        <div
-          className="flex gap-2 items-center font-bold text-[#333333]"
-          style={{ fontFamily: '"Roboto", sans-serif' }}
-        >
-          <Star fill="#fcfc28" className="text-[#fcfc28]" />
-          {rate}
-        </div>
-      </div>
-
-      <p className="text-left px-2 mb-3 font-semibold md:px-4">{descibe}</p>
-      <div className="flex items-center justify-between px-3">
-        <button
-          onClick={addOrder}
-          className="flex items-center px-5 py-2 bg-red-500 rounded-full text-white gap-2 font-semibold"
-        >
-          <ShoppingBag size={20} /> Order Now
-        </button>
-
-        <div className="bg-red-300 p-2 rounded-full text-rose-500">
-          {<ShoppingCart className="" /> || qty}
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const TestimonialCard = ({ img, name, descibe }) => {
-  return (
-    <div className="border mx-3 my-8 rounded-xl p-4 bg-gradient-to-b to-rose-400 from-rose-100">
-      <img
-        className="h-20 w-20 rounded-full"
-        src={
-          img
-            ? img
-            : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7DCs0RF4l146RPy1fxiLnhtAd411t4Ptv6A&s"
-        }
-        alt="profile image"
-      />
-      <p
-        className="font-medium text-rose-500 text-2xl my-2"
-        style={{ fontFamily: "'Caveat', cursive" }}
-      >
-        {name ? name : "Neha, Project"}
-      </p>
-      <p
-        style={{ fontFamily: '"Roboto", sans-serif' }}
-        className="text-white font-bold"
-      >
-        {descibe
-          ? descibe
-          : "Fantastic Service! The Food was amazing, delivery boy was very king and services was very fast, Highly recommed!"}
-      </p>
-      <div className="flex items-center gap-2 my-2">
-        <Star fill="#ffee00" className="text-[#ffee00]" />
-        <Star fill="#ffee00" className="text-[#ffee00]" />
-        <Star fill="#ffee00" className="text-[#ffee00]" />
-        <Star fill="#ffee00" className="text-[#ffee00]" />
-        <Star fill="#ffee00" className="text-[#ffee00]" />
-      </div>
-    </div>
-  );
-};

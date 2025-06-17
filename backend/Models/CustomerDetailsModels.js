@@ -5,7 +5,11 @@ const customerDetailsSchema = new mongoose.Schema(
     customerName: String,
     customerPhone: Number,
     customerLocation: String,
-    customerEmail: String,
+    customerEmail: {
+      type:String,
+      required:true,
+      unique:true
+    },
   },
   { timestamps: true }
 );

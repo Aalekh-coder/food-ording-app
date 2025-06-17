@@ -1,31 +1,35 @@
 import { Minus, Plus, ShoppingCart, Vault } from "lucide-react";
 import React, { useContext, useEffect } from "react";
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { OrderContext } from "@/context/Order-context";
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { getItemOfCart } from "@/api";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
-const Navbar = ({ orderItem }) => {
-  const { order, cart, setCart,handleAddQty } = useContext(OrderContext);
+const Navbar = () => {
+  const { cart, increaseQty, decreaseQty, foodItemsData } =
+    useContext(OrderContext);
 
- 
 
-  useEffect(() => {
-    const getItemOfCartData = async () => {
-      try {
-        const { data } = await getItemOfCart();
-        console.log(data);
-        setCart(data?.foodItems);
-      } catch (error) {
-        console.error("Error fetching cart items:", error);
-      }
-    };
+  const price = cart
+    ?.map((item) => {
+      return item?.discountedPrice * item?.qty;
+    })
+    .reduce((acc, curr) => acc + curr, 0);
 
-    getItemOfCartData();
-  }, []);
+    function handleCartItem() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
 
+  
   return (
     <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5  fixed top-0 z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
       <motion.div
@@ -73,7 +77,10 @@ const Navbar = ({ orderItem }) => {
                       title={item?.title || item?.foodName}
                       key={index}
                       qty={item?.qty || item?.quantity}
-                      // functiuon={() => handleItemIndex(order[index])}
+                      increaseQty={increaseQty}
+                      decreaseQty={
+                        decreaseQty
+                      }
                     />
                   );
                 })
@@ -96,22 +103,18 @@ const Navbar = ({ orderItem }) => {
             </div>
           </div>
 
-          {order && order?.length ? (
-            <Link
-              to={"/payment"}
-              className=" w-full  flex items-center justify-center"
+          <Link
+            to={"/payment"}
+onClick={handleCartItem}
+            className=" w-full  flex items-center justify-center"
+          >
+            <button
+              style={{ fontFamily: '"Roboto", sans-serif' }}
+              className="bg-blue-800 font-bold text-white mx-4 px-14 py-2 rounded-full"
             >
-              <button
-                style={{ fontFamily: '"Roboto", sans-serif' }}
-                className="bg-blue-800 font-bold text-white mx-4 px-14 py-2 rounded-full"
-              >
-                Pay ₹{" "}
-                {order.reduce((acc, curr) => {
-                  return acc + curr.price;
-                }, 0)}
-              </button>
-            </Link>
-          ) : null}
+              Pay ₹ {price}
+            </button>
+          </Link>
         </SheetContent>
       </Sheet>
     </div>
@@ -120,8 +123,14 @@ const Navbar = ({ orderItem }) => {
 
 export default Navbar;
 
-const FoodItem = ({ img, title, qty, functiuon }) => {
-  const { order,handleAddQty } = useContext(OrderContext);
+const FoodItem = ({
+  img,
+  title,
+  qty,
+  increaseQty,
+  decreaseQty,
+}) => {
+  const { order, handleAddQty } = useContext(OrderContext);
 
   return (
     <div className="my-3 h-[13vh]  rounded-full flex items-center px-3 gap-3 pl-3 shadow-lg mx-2 md:mx-8 ">
@@ -140,12 +149,15 @@ const FoodItem = ({ img, title, qty, functiuon }) => {
         <div className="flex items-center gap-5 px-2">
           <div
             className="border-green-400 border-2 rounded-full"
-            onClick={() => handleAddQty(qty)}
+            onClick={() => increaseQty(title)}
           >
             <Plus />
           </div>
           <div className="font-medium text-2xl">{qty}</div>
-          <div className="border-red-400 border-2 rounded-full">
+          <div
+            className="border-red-400 border-2 rounded-full"
+            onClick={() => decreaseQty(title)}
+          >
             <Minus />
           </div>
         </div>

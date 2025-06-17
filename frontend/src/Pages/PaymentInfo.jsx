@@ -1,29 +1,41 @@
+import { addCustomerDetails } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPinHouse, Phone, UserRoundPen } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import Bill from "./Bill";
+
 const PaymentInfo = () => {
-  // State variables for each input field
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
 
-  function handleForm(e) {
+  async function handleForm(e) {
     e.preventDefault();
-    // Display a success toast notification
-    toast.success(`Thanks ${name} from Masala Story!`);
+    const data = {
+      customerName: name,
+      customerPhone: phone,
+      customerLocation: location,
+      customerEmail: email,
+    };
 
-    // Log all gathered form data
-    console.log({
-      name: name,
-      phone: phone,
-      location: location,
-      email: email,
-    });
+    const response = await addCustomerDetails(data);
+    if (response?.success) {
+      toast.success(`Thanks ${name} from Masala Story!`);
+    } else {
+      toast.error("Something went wrong");
+    }
 
-    // Optionally, clear the form fields after submission
     setName("");
     setPhone("");
     setLocation("");
@@ -60,7 +72,7 @@ const PaymentInfo = () => {
                 placeholder="Enter your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                required // Mark as required
+                required
                 aria-label="Name"
               />
             </div>
@@ -68,11 +80,11 @@ const PaymentInfo = () => {
               <Phone />
               <input
                 className="border-none focus:outline-none w-full"
-                type="tel" // Changed to 'tel' for phone numbers
+                type="number" // Changed to 'tel' for phone numbers
                 placeholder="Enter Your Phone No."
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                required // Mark as required
+                required
                 aria-label="Phone Number"
               />
             </div>
@@ -84,7 +96,7 @@ const PaymentInfo = () => {
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 rows={2}
-                required // Mark as required
+                required
                 aria-label="Delivery Location"
               ></textarea>
             </div>
@@ -92,11 +104,11 @@ const PaymentInfo = () => {
               <Mail />
               <input
                 className="border-none focus:outline-none w-full"
-                type="email" // Ensure type is 'email'
+                type="email"
                 placeholder="Enter your Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required // Mark as required
+                required
                 aria-label="Email Address"
               />
             </div>
@@ -105,6 +117,12 @@ const PaymentInfo = () => {
               Submit
             </Button>
           </form>
+          <Dialog>
+            <DialogTrigger>Open</DialogTrigger>
+            <DialogContent>
+            <Bill />
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
       <div className="md:w-1/2 hidden md:block md:h-[95vh] ">

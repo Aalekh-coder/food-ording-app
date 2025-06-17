@@ -4,6 +4,7 @@ import connectToDB from './Config/Db.js'
 import ProductRoute from "./Routes/ProductRoutes.js"
 import cartRoutes from "./Routes/CartRoutes.js";
 import cors from "cors" 
+import CustomerRoutes from "./Routes/CustomerRoutes.js"
 
 const app = express() 
 const Serverport = PORT || 5000;
@@ -15,7 +16,8 @@ app.use(cors({
 
 app.use("/api",ProductRoute);
 app.use("/api/cart", cartRoutes);
-app.use("/api/customer", cartRoutes);
+app.use("/api/customer",CustomerRoutes);
+
 
 app.get('/', (req, res) => {
   res.send('Hello World')
