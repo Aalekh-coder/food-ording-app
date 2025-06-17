@@ -4,11 +4,30 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const PaymentInfo = () => {
-  const [name, setName] = useState();
+  // State variables for each input field
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [email, setEmail] = useState("");
+
   function handleForm(e) {
     e.preventDefault();
-    toast.success(`Thanks ${name} from Masala Story`);
-    console.log(name);
+    // Display a success toast notification
+    toast.success(`Thanks ${name} from Masala Story!`);
+
+    // Log all gathered form data
+    console.log({
+      name: name,
+      phone: phone,
+      location: location,
+      email: email,
+    });
+
+    // Optionally, clear the form fields after submission
+    setName("");
+    setPhone("");
+    setLocation("");
+    setEmail("");
   }
 
   return (
@@ -36,37 +55,49 @@ const PaymentInfo = () => {
             <div className="relative border rounded-xl px-3 flex items-center py-2 gap-5 my-3">
               <UserRoundPen />
               <input
-                className="border-none focus:outline-none"
+                className="border-none focus:outline-none w-full" // Added w-full for better styling
                 type="text"
-                placeholder="Enter you Name"
+                placeholder="Enter your Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required // Mark as required
+                aria-label="Name"
               />
             </div>
             <div className="relative border rounded-xl px-3 flex items-center py-2 gap-5 my-3">
               <Phone />
               <input
-                className="border-none  focus:outline-none"
-                type="number"
-                placeholder="Enter Your phone No."
+                className="border-none focus:outline-none w-full"
+                type="tel" // Changed to 'tel' for phone numbers
+                placeholder="Enter Your Phone No."
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required // Mark as required
+                aria-label="Phone Number"
               />
             </div>
             <div className="relative border rounded-xl px-3 flex items-center py-2 gap-5 my-3">
               <MapPinHouse />
               <textarea
-                className="border-none  focus:outline-none"
-                type="text"
+                className="border-none focus:outline-none w-full resize-y" // Added resize-y for vertical resizing
                 placeholder="Enter your Location"
-                cols={32}
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
                 rows={2}
+                required // Mark as required
+                aria-label="Delivery Location"
               ></textarea>
             </div>
             <div className="relative border rounded-xl px-3 flex items-center py-2 gap-5 my-3">
               <Mail />
               <input
-                className="border-none  focus:outline-none"
-                type="email"
+                className="border-none focus:outline-none w-full"
+                type="email" // Ensure type is 'email'
                 placeholder="Enter your Email Address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required // Mark as required
+                aria-label="Email Address"
               />
             </div>
 
@@ -79,7 +110,7 @@ const PaymentInfo = () => {
       <div className="md:w-1/2 hidden md:block md:h-[95vh] ">
         <img
           src="./food.jpg"
-          alt="food-panner"
+          alt="Delicious food spread on a table, symbolizing Masala Story cuisine"
           className="lg:object-cover lg:h-[100vh] w-full"
         />
       </div>

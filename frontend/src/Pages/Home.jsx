@@ -10,11 +10,26 @@ import {
   ShoppingCart,
   Star,
 } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { easeInOut, motion } from "motion/react";
+import { fetchAllFoodItems } from "@/api";
 
 const Home = () => {
-  const { order, handleAddOrder } = useContext(OrderContext);
+  const { order, handleAddOrder, foodItem, setfoodItem } =
+    useContext(OrderContext);
+
+  useEffect(() => {
+    const getFoodItems = async () => {
+      try {
+        const foodItems = await fetchAllFoodItems();
+        setfoodItem(foodItems?.data);
+      } catch (error) {
+        console.error("Error fetching food items:", error);
+      }
+    };
+
+    getFoodItems();
+  }, []);
 
   return (
     <>
@@ -218,21 +233,27 @@ const Home = () => {
           transition={{ duration: 0.4 }}
           className="grid grid-cols-1 md:grid-cols-2 md:px-5 lg:grid-cols-4"
         >
-          {foodItems?.map((foodItem, index) => {
-            return (
-              <FoodCard
-                key={index}
-                img={foodItem?.img}
-                title={foodItem?.title}
-                descibe={foodItem?.describe}
-                rate={foodItem?.rate}
-                addOrder={() => handleAddOrder(foodItem)}
-                price={foodItem?.price}
-                discountedPrice={foodItem?.discountedPrice}
-                qty={foodItem?.qty}
-              />
-            );
-          })}
+          {foodItem && foodItem?.length ? (
+            foodItem?.map((foodItem, index) => {
+              return (
+                <FoodCard
+                  key={index}
+                  img={foodItem?.image}
+                  title={foodItem?.foodName}
+                  descibe={foodItem?.foodDescription}
+                  rate={foodItem?.rate}
+                  addOrder={() =>
+                    handleAddOrder(foodItem?._id, 1, foodItem?.image)
+                  }
+                  price={foodItem?.price}
+                  discountedPrice={foodItem?.discountedPrice}
+                  qty={foodItem?.qty}
+                />
+              );
+            })
+          ) : (
+            <div>Error while fetching...</div>
+          )}
         </motion.div>
       </div>
 
@@ -342,7 +363,7 @@ const FoodCard = ({
   qty,
 }) => {
   return (
-    <div  className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
+    <div className="mx-5 my-8 rounded-lg overflow-hidden border pb-5">
       <div className="relative">
         <span className="bg-red-500 absolute flex items-center text-white px-4 py-3 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 gap-2 rounded-ee-full">
           <p className="text-sm line-through">₹{price ? price : "200"}</p>

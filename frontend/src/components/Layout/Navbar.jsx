@@ -1,42 +1,61 @@
 import { Minus, Plus, ShoppingCart, Vault } from "lucide-react";
-import React, { useContext } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import React, { useContext, useEffect } from "react";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { OrderContext } from "@/context/Order-context";
 import { Link, useNavigate } from "react-router";
-import {motion} from "motion/react"
+import { motion } from "motion/react";
+import { getItemOfCart } from "@/api";
+import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
 const Navbar = ({ orderItem }) => {
-  const { order, setOrder, handleAddOrder } = useContext(OrderContext);
+  const { order, cart, setCart,handleAddQty } = useContext(OrderContext);
 
-  function handleItemIndex(index) {
-    console.log(index)
-  
-  }
+ 
 
+  useEffect(() => {
+    const getItemOfCartData = async () => {
+      try {
+        const { data } = await getItemOfCart();
+        console.log(data);
+        setCart(data?.foodItems);
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
 
-
+    getItemOfCartData();
+  }, []);
 
   return (
     <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5  fixed top-0 z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
-      <motion.div whileHover={{
-        scale:1.2,
-        rotate:2,
-      }} style={{ fontFamily: "'Caveat', cursive" }} className="text-3xl ">
-        <Link to={"/"}>
-        Masala Story
-        </Link>
+      <motion.div
+        whileHover={{
+          scale: 1.2,
+          rotate: 2,
+        }}
+        style={{ fontFamily: "'Caveat', cursive" }}
+        className="text-3xl "
+      >
+        <Link to={"/"}>Masala Story</Link>
       </motion.div>
 
       <Sheet>
         <SheetTrigger>
           <div className="px-3 rounded-full py-3 bg-rose-500 relative">
             <span className="h-5 w-5 bg-rose-300 absolute top-0 -left-1 flex items-center justify-center rounded-full">
-              {orderItem ? orderItem : 0}
+              {cart ? cart?.length : 0}
             </span>
             <ShoppingCart />
           </div>
         </SheetTrigger>
         <SheetContent className="">
+          <VisuallyHidden.Root>
+            <SheetHeader>
+              <SheetTitle>nav</SheetTitle>
+              <SheetDescription>dfsdfsd</SheetDescription>
+            </SheetHeader>
+          </VisuallyHidden.Root>
+
           <div className="mt-10">
             <p
               className="font-bold text-3xl text-[#333] mb-5 ml-5"
@@ -46,16 +65,15 @@ const Navbar = ({ orderItem }) => {
             </p>
 
             <div className="overflow-y-auto h-[65vh]">
-              {order && order.length ? (
-                order?.map((item, index) => {
-                  
+              {cart && cart.length ? (
+                cart?.map((item, index) => {
                   return (
                     <FoodItem
-                      img={item?.img}
-                      title={item?.title}
+                      img={item?.img || item?.image}
+                      title={item?.title || item?.foodName}
                       key={index}
-                      qty={item?.qty}
-                      functiuon={() => handleItemIndex(order[index])}
+                      qty={item?.qty || item?.quantity}
+                      // functiuon={() => handleItemIndex(order[index])}
                     />
                   );
                 })
@@ -103,7 +121,7 @@ const Navbar = ({ orderItem }) => {
 export default Navbar;
 
 const FoodItem = ({ img, title, qty, functiuon }) => {
-  const { order } = useContext(OrderContext);
+  const { order,handleAddQty } = useContext(OrderContext);
 
   return (
     <div className="my-3 h-[13vh]  rounded-full flex items-center px-3 gap-3 pl-3 shadow-lg mx-2 md:mx-8 ">
@@ -122,7 +140,7 @@ const FoodItem = ({ img, title, qty, functiuon }) => {
         <div className="flex items-center gap-5 px-2">
           <div
             className="border-green-400 border-2 rounded-full"
-            onClick={() => functiuon()}
+            onClick={() => handleAddQty(qty)}
           >
             <Plus />
           </div>

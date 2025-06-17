@@ -1,7 +1,7 @@
 export const foodItems = [
   {
     img: "https://www.secondrecipe.com/wp-content/uploads/2017/08/rajma-chawal-1.jpg",
-    title: "Rajma Chawal",
+    title: "Rajma Chawal 2",
     describe: "light, nutritious and quick-to-make Breakfast",
     rate: 4.5,
     price: 120, 
@@ -10,7 +10,7 @@ export const foodItems = [
   },
   {
     img: "https://i.pinimg.com/736x/42/8c/68/428c68beb709830c29f7a80591f94de4.jpg",
-    title: "Veg Biriyani",
+    title: "Veg Biriyani 2 ",
     describe: "Our Veg Biryani is a delightful Indian classic.",
     rate: 4.2,
     price: 80,
@@ -19,7 +19,7 @@ export const foodItems = [
   },
   {
     img: "https://i.pinimg.com/736x/ba/5e/0f/ba5e0f0130bd14c081892c72ffd765ee.jpg",
-    title: "Lumb Curry",
+    title: "Lumb Curry 2",
     describe: "Succulent lamb, slow-cooked in rich, aromatic Indian spices.",
     rate: 4.0,
     price: 70,
@@ -28,7 +28,7 @@ export const foodItems = [
   },
   {
     img: "https://i.pinimg.com/736x/98/0d/06/980d06b003447de5b56cb41574d63e2d.jpg",
-    title: "Butter Chicken",
+    title: "Butter Chicken 2",
     describe: "Creamy tomato, butter, and spice-infused chicken.",
     rate: 4.3,
     price: 30, // Price per piece or per plate, depending on how you sell it
