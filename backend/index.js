@@ -13,7 +13,7 @@ const Serverport = PORT || 5000;
 
 app.use(json())
 app.use(cors({
-  origin:"http://localhost:5173"
+  origin:"*"
 }))
 app.use(urlencoded({extended:true}))
 
