@@ -20,6 +20,11 @@ const Home = () => {
   const { handleAddOrder,foodItemsData,cart} =
     useContext(OrderContext);
 
+
+
+    
+
+
   // useEffect(() => {
   //   const getFoodItems = async () => {
   //     try {

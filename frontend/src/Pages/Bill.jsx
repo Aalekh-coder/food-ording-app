@@ -1,3 +1,4 @@
+import { paymentCheckout } from "@/api";
 import { Button } from "@/components/ui/button";
 import {
   DialogDescription,
@@ -7,7 +8,17 @@ import {
 
 const Bill = () => {
   const storedData = JSON.parse(localStorage.getItem("cart"));
-  console.log(storedData);
+  const price = storedData?.reduce(
+    (total, item) => total + item.discountedPrice * item.qty,
+    0
+  );
+  console.log(price);
+
+  async function handlePay() {
+    const response = await paymentCheckout(price);
+    console.log(response);
+  }
+
   return (
     <div>
       <DialogHeader>
@@ -71,6 +82,7 @@ const Bill = () => {
         <Button
           className="w-full my-5 bg-blue-500 text-white"
           variant="outline"
+          onClick={handlePay}
         >
           Pay
         </Button>

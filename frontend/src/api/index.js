@@ -39,12 +39,49 @@ export async function editQuantityInCart() {
 
 // customer deatils
 
-export const addCustomerDetails = async (formData)=>{
+export const addCustomerDetails = async (formData) => {
   try {
-    const response = await axiosInstance.post("/api/customer/addDetail",formData);
-    return response.data
+    const response = await axiosInstance.post(
+      "/api/customer/addDetail",
+      formData
+    );
+    return response.data;
   } catch (error) {
     console.log(error);
-
   }
-}
+};
+
+// Payment
+
+export const paymentCheckout = async (amount) => {
+  const {
+    data: { key },
+  } = await axiosInstance.get("/api/getkey");
+
+  const { data } = await axiosInstance.post("/api/payment/checkout", {
+    amount,
+  });
+
+  const options = {
+    key, // Replace with your Razorpay key_id
+    amount: data?.order?.amount,
+    currency: "INR",
+    name: "Aalekh",
+    description: "Test Transaction learning payment",
+    order_id: data?.order?.id,
+    callback_url: "http://localhost:3000/api/payment/paymentverification", // Your success URL
+    prefill: {
+      name: "Aalekh",
+      email: "aalekh.kumar@example.com",
+      contact: "8527713086",
+    },
+    theme: {
+      color: "#F37254",
+    },
+  };
+
+  const rzp = new window.Razorpay(options);
+  rzp.open();
+
+  return data;
+};

@@ -12,7 +12,9 @@ import { OrderContext } from "@/context/Order-context";
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { getItemOfCart } from "@/api";
-import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+// import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
+
 
 const Navbar = () => {
   const { cart, increaseQty, decreaseQty, foodItemsData } =
@@ -53,12 +55,12 @@ const Navbar = () => {
           </div>
         </SheetTrigger>
         <SheetContent className="">
-          <VisuallyHidden.Root>
+          <VisuallyHidden>
             <SheetHeader>
               <SheetTitle>nav</SheetTitle>
               <SheetDescription>dfsdfsd</SheetDescription>
             </SheetHeader>
-          </VisuallyHidden.Root>
+          </VisuallyHidden>
 
           <div className="mt-10">
             <p

@@ -7,9 +7,6 @@ import toast from "react-hot-toast";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import Bill from "./Bill";
@@ -41,6 +38,9 @@ const PaymentInfo = () => {
     setLocation("");
     setEmail("");
   }
+
+
+ 
 
   return (
     <div className="md:flex md:items-center lg:items-start">
