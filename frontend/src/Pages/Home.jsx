@@ -17,9 +17,8 @@ import FoodCard from "@/components/subcomponents/FoodCard";
 import TestimonialCard from "@/components/subcomponents/TestimonialCard";
 
 const Home = () => {
-  const { handleAddOrder,foodItemsData,cart} =
+  const { handleAddOrder,foodItemsData} =
     useContext(OrderContext);
-
 
 
     

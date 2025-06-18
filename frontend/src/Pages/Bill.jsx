@@ -79,13 +79,13 @@ const Bill = () => {
             )}
           </span>
         </div>
-        <Button
+        {/* <Button
           className="w-full my-5 bg-blue-500 text-white"
           variant="outline"
           onClick={handlePay}
         >
           Pay
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

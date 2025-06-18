@@ -1,21 +1,33 @@
-import { addCustomerDetails } from "@/api";
+import { addCustomerDetails, paymentCheckout } from "@/api";
 import { Button } from "@/components/ui/button";
 import { Mail, MapPinHouse, Phone, UserRoundPen } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Bill from "./Bill";
 
 const PaymentInfo = () => {
+
+  const storedData = JSON.parse(localStorage.getItem("cart"));
+  const price = storedData?.reduce(
+    (total, item) => total + item.discountedPrice * item.qty,
+    0
+  );
+
+  async function handlePay() {
+    const response = await paymentCheckout(price);
+    console.log(response);
+  }
+
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
+
+ 
+
 
   async function handleForm(e) {
     e.preventDefault();
@@ -38,9 +50,6 @@ const PaymentInfo = () => {
     setLocation("");
     setEmail("");
   }
-
-
- 
 
   return (
     <div className="md:flex md:items-center lg:items-start">
@@ -113,14 +122,14 @@ const PaymentInfo = () => {
               />
             </div>
 
-            <Button type="submit" className="bg-blue-600 w-full ">
+            <Button type="submit" className={`w-full bg-blue-500`} onClick={handlePay}>
               Submit
             </Button>
           </form>
           <Dialog>
-            <DialogTrigger>Open</DialogTrigger>
+            <DialogTrigger className="w-full bg-orange-500 mt-5 py-2 rounded-lg text-white font-bold">View Bill</DialogTrigger>
             <DialogContent>
-            <Bill />
+              <Bill />
             </DialogContent>
           </Dialog>
         </div>

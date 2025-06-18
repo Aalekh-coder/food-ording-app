@@ -1,6 +1,7 @@
 import { RAZOR_PAY_API_SECRET_KEY } from "../Config/env.js";
 import { razorpayInstance } from "../Utils/razorPay.js";
 import crypto from "crypto";
+import Payment from "../Models/PaymentModel.js";
 
 export const checkout = async (req, res) => {
   const options = {
@@ -18,8 +19,7 @@ export const checkout = async (req, res) => {
 };
 
 export const paymentVerification = async (req, res) => {
-  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-    req.body;
+  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } = req.body;
 
   const body = razorpay_order_id + "|" + razorpay_payment_id;
 
@@ -28,18 +28,24 @@ export const paymentVerification = async (req, res) => {
     .update(body.toString())
     .digest("hex");
 
-  console.log("sig received ", razorpay_signature);
-  console.log("sig generated ", expectedSignature);
-
   if (razorpay_signature === expectedSignature) {
     console.log("aalekh jeet baat");
+
+    // Save payment info
+    await Payment.create({
+      razorpay_payment_id,
+      razorpay_order_id,
+      razorpay_signature,
+    });
+
+    return res.redirect(
+      `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
+    );
   } else {
-    return res.status(300).json({
+    return res.status(400).json({
       success: false,
+      message: 'Invalid signature',
     });
   }
-
-  return res.status(200).json({
-    success: true,
-  });
 };
+

@@ -13,11 +13,10 @@ import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { getItemOfCart } from "@/api";
 // import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-import { VisuallyHidden } from '@radix-ui/react-visually-hidden';
-
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const Navbar = () => {
-  const { cart, increaseQty, decreaseQty, foodItemsData } =
+  const { cart, increaseQty, decreaseQty } =
     useContext(OrderContext);
 
 
@@ -27,11 +26,10 @@ const Navbar = () => {
     })
     .reduce((acc, curr) => acc + curr, 0);
 
-    function handleCartItem() {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
+  function handleCartItem() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
 
-  
   return (
     <div className="w-full h-14 flex px-5 items-center justify-between md:px-14 md:pt-5 lg:py-5  fixed top-0 z-50 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10">
       <motion.div
@@ -80,9 +78,7 @@ const Navbar = () => {
                       key={index}
                       qty={item?.qty || item?.quantity}
                       increaseQty={increaseQty}
-                      decreaseQty={
-                        decreaseQty
-                      }
+                      decreaseQty={decreaseQty}
                     />
                   );
                 })
@@ -107,7 +103,7 @@ const Navbar = () => {
 
           <Link
             to={"/payment"}
-onClick={handleCartItem}
+            onClick={handleCartItem}
             className=" w-full  flex items-center justify-center"
           >
             <button
@@ -125,13 +121,7 @@ onClick={handleCartItem}
 
 export default Navbar;
 
-const FoodItem = ({
-  img,
-  title,
-  qty,
-  increaseQty,
-  decreaseQty,
-}) => {
+const FoodItem = ({ img, title, qty, increaseQty, decreaseQty }) => {
   const { order, handleAddQty } = useContext(OrderContext);
 
   return (

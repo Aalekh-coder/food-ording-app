@@ -35,6 +35,77 @@ export const createCustomer = async (req, res) => {
   }
 };
 
+import Customer from "../models/Customer.js"; // adjust path if needed
+
+export const createCustomerNew = async (req, res) => {
+  try {
+    const {
+      customerName,
+      customerPhone,
+      customerLocation,
+      customerEmail,
+      paymentStatus,
+      foodItems,
+    } = req.body;
+
+    // Check if customerEmail already exists
+    const existingCustomer = await Customer.findOne({ customerEmail });
+    if (existingCustomer) {
+      return res.status(400).json({ message: "Customer with this email already exists." });
+    }
+
+    const newCustomer = await Customer.create({
+      customerName,
+      customerPhone,
+      customerLocation,
+      customerEmail,
+      paymentStatus,
+      foodItems,
+    });
+
+    res.status(201).json({
+      success: true,
+      message: "Customer created successfully",
+      data: newCustomer,
+    });
+  } catch (error) {
+    console.error("Error creating customer:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error. Failed to create customer.",
+    });
+  }
+};
+
+export const updatePaymentStatus = async (req, res) => {
+  try {
+    const { customerEmail } = req.body;
+
+    const updatedCustomer = await Customer.findOneAndUpdate(
+      { customerEmail },
+      { paymentStatus: true },
+      { new: true }
+    );
+
+    if (!updatedCustomer) {
+      return res.status(404).json({ message: "Customer not found" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Payment status updated to true",
+      data: updatedCustomer,
+    });
+  } catch (error) {
+    console.error("Error updating payment status:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating payment status",
+    });
+  }
+};
+
+
 export const getCustomers = async (req, res) => {
   try {
     // Find all customers in the database
