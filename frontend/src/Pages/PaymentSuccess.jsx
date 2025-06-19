@@ -1,15 +1,41 @@
+import { isPaymentCheckService } from "@/api";
 import { motion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const isPayment = localStorage.getItem("paymentId");
+  console.log(isPayment);
+
+  if (isPayment) {
+    navigate("/");
+  }
+
   // Check the current path
   if (location.pathname === "/paymentsuccess") {
     localStorage.removeItem("cart");
   }
+
+  async function handlePaymentCheck() {
+    const paymentId = localStorage.getItem("paymentId");
+    const response = await isPaymentCheckService(paymentId);
+
+    if (response?.success) {
+      localStorage.removeItem("paymentId");
+    }else{
+       navigate("/");
+    }
+
+    // console.log(response);
+  }
+
+  useEffect(() => {
+    handlePaymentCheck();
+  }, []);
 
   return (
     <motion.div

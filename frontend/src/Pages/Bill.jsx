@@ -1,5 +1,3 @@
-import { paymentCheckout } from "@/api";
-import { Button } from "@/components/ui/button";
 import {
   DialogDescription,
   DialogHeader,
@@ -8,16 +6,8 @@ import {
 
 const Bill = () => {
   const storedData = JSON.parse(localStorage.getItem("cart"));
-  const price = storedData?.reduce(
-    (total, item) => total + item.discountedPrice * item.qty,
-    0
-  );
-  console.log(price);
 
-  async function handlePay() {
-    const response = await paymentCheckout(price);
-    console.log(response);
-  }
+
 
   return (
     <div>

@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="px-5 md:flex md:justify-between md:px-10 lg:mb-8 lg:px-20">
       <div>
       <div className="flex flex-col gap-5 mb-5 ">
-        <p style={{ fontFamily: "'Caveat', cursive" }} className="text-3xl">
+        <p style={{ fontFamily: "'Caveat', cursive" }} className="hover:text-rose-500 duration-300 ease-in-out font-bold text-3xl hover:skew-y-6">
           Masala Story
         </p>
         <p className="font-semibold text-[#333333] ">

@@ -1,41 +1,5 @@
 import Customer from "../Models/CustomerDetailsModels.js";
 
-export const createCustomer = async (req, res) => {
-  try {
-    const { customerName, customerPhone, customerLocation, customerEmail } = req.body;
-
-    if (!customerName || !customerPhone || !customerLocation || !customerEmail) {
-      return res.status(400).json({
-        success: false,
-        message: "All customer details (name, phone, location, email) are required.",
-      });
-    }
-
-    const newCustomer = new Customer({
-      customerName,
-      customerPhone,
-      customerLocation,
-      customerEmail,
-    });
-
-    const savedCustomer = await newCustomer.save();
-
-    res.status(201).json({
-      success: true,
-      message: "Customer details saved successfully!",
-      data: savedCustomer,
-    });
-  } catch (error) {
-    console.error("Error creating customer:", error);
-    res.status(500).json({
-      success: false,
-      message: "Failed to save customer details.",
-      error: error.message,
-    });
-  }
-};
-
-import Customer from "../models/Customer.js"; // adjust path if needed
 
 export const createCustomerNew = async (req, res) => {
   try {
@@ -46,6 +10,7 @@ export const createCustomerNew = async (req, res) => {
       customerEmail,
       paymentStatus,
       foodItems,
+      totalAmount
     } = req.body;
 
     // Check if customerEmail already exists
@@ -61,6 +26,7 @@ export const createCustomerNew = async (req, res) => {
       customerEmail,
       paymentStatus,
       foodItems,
+      totalAmount
     });
 
     res.status(201).json({
@@ -77,18 +43,21 @@ export const createCustomerNew = async (req, res) => {
   }
 };
 
-export const updatePaymentStatus = async (req, res) => {
+export const updatePaymentStatusById = async (req, res) => {
   try {
-    const { customerEmail } = req.body;
+    const { customerId } = req.params;
 
-    const updatedCustomer = await Customer.findOneAndUpdate(
-      { customerEmail },
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      customerId,
       { paymentStatus: true },
       { new: true }
     );
 
     if (!updatedCustomer) {
-      return res.status(404).json({ message: "Customer not found" });
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
     }
 
     res.status(200).json({
@@ -109,7 +78,7 @@ export const updatePaymentStatus = async (req, res) => {
 export const getCustomers = async (req, res) => {
   try {
     // Find all customers in the database
-    const customers = await Customer.find({});
+   const customers = await Customer.find({}).select('_id paymentStatus totalAmount customerPhone customerName');
 
     // Send a success response with the list of customers
     res.status(200).json({
@@ -128,3 +97,7 @@ export const getCustomers = async (req, res) => {
     });
   }
 };
+
+export const getCustomersById = async(req,res)=>{
+  
+}

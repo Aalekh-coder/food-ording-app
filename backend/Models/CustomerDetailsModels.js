@@ -10,21 +10,31 @@ const customerDetailsSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    paymentStatus: false,
+    paymentStatus: {
+      type: Boolean,
+      default: false,
+    },
+    totalAmount:{
+      type:Number,
+      required:true
+    },
+    dilivered:{
+      type:Boolean,
+      default:false
+    },
     foodItems: [
-        {
-          quantity: {
-            type: Number,
-            default: 1,
-            min: 1,
-          },
-          foodName: {
-            type: String,
-            required: true,
-          },
+      {
+        quantity: {
+          type: Number,
+          default: 1,
+          min: 1,
         },
-      ],
-
+        foodName: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

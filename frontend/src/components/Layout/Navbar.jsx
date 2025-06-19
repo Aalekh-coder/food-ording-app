@@ -12,8 +12,6 @@ import { OrderContext } from "@/context/Order-context";
 import { Link, useNavigate } from "react-router";
 import { motion } from "motion/react";
 import { getItemOfCart } from "@/api";
-// import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
-// import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 const Navbar = () => {
   const { cart, increaseQty, decreaseQty } =
@@ -40,7 +38,7 @@ const Navbar = () => {
         style={{ fontFamily: "'Caveat', cursive" }}
         className="text-3xl "
       >
-        <Link to={"/"}>Masala Story</Link>
+        <Link to={"/"} className="hover:text-rose-500 duration-300 ease-in-out font-bold">Masala Story</Link>
       </motion.div>
 
       <Sheet>
@@ -102,13 +100,14 @@ const Navbar = () => {
           </div>
 
           <Link
-            to={"/payment"}
+            to={price === 0 ? "/": "/payment"}
             onClick={handleCartItem}
             className=" w-full  flex items-center justify-center"
           >
             <button
               style={{ fontFamily: '"Roboto", sans-serif' }}
               className="bg-blue-800 font-bold text-white mx-4 px-14 py-2 rounded-full"
+              disabled={price === 0}
             >
               Pay ₹ {price}
             </button>

@@ -6,10 +6,13 @@ import cartRoutes from "./Routes/CartRoutes.js";
 import cors from "cors" 
 import CustomerRoutes from "./Routes/CustomerRoutes.js"
 import paymentRoute from "./Routes/paymentRoutes.js"
+import dotenv from "dotenv";
 
+
+dotenv.config({ path: ".env" });
 
 const app = express() 
-const Serverport = PORT || 5000;
+const Serverport = process.env.PORT || 5000;
 
 app.use(json())
 app.use(cors({

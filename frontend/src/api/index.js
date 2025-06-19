@@ -39,10 +39,10 @@ export async function editQuantityInCart() {
 
 // customer deatils
 
-export const addCustomerDetails = async (formData) => {
+export const addCustomerFullDetails = async (formData) => {
   try {
     const response = await axiosInstance.post(
-      "/api/customer/addDetail",
+      "/api/customer/addFullDetails",
       formData
     );
     return response.data;
@@ -51,6 +51,15 @@ export const addCustomerDetails = async (formData) => {
   }
 };
 
+
+export const isPaymentCheckService = async (id)=>{
+  try {
+    const response = await axiosInstance.put(`/api/customer/${id}/payment`);
+    return response.data
+  } catch (error) {
+    console.log(error);
+  }
+}
 // Payment
 
 export const paymentCheckout = async (amount) => {
@@ -85,3 +94,15 @@ export const paymentCheckout = async (amount) => {
 
   return data;
 };
+
+
+// dashboard api
+
+export const dashboardListService = async ()=>{
+  try {
+    const response = await axiosInstance.get("/api/customer/getAllDetails");
+    return response.data
+  } catch (error) {
+    console.log(error);
+  }
+}
