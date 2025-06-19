@@ -4,11 +4,6 @@ import path from "path"
 
 // https://vite.dev/config/
 export default defineConfig({
-   build: {
-    rollupOptions: {
-      external: ['@radix-ui/react-visually-hidden'],
-    },
-  },
   plugins: [react()],
    resolve: {
     alias: {
