@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: ".env" });
 
-const { PORT, DB_URL, RAZOR_PAY_API_KEY, RAZOR_PAY_API_SECRET_KEY } =
+const { PORT, DB_URL, RAZOR_PAY_API_KEY, RAZOR_PAY_API_SECRET_KEY,FRONTEND_URL } =
   process.env;
 
-export { PORT, DB_URL, RAZOR_PAY_API_KEY, RAZOR_PAY_API_SECRET_KEY };
+export { PORT, DB_URL, RAZOR_PAY_API_KEY, RAZOR_PAY_API_SECRET_KEY,FRONTEND_URL };

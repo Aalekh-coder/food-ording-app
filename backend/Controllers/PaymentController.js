@@ -1,4 +1,4 @@
-import { RAZOR_PAY_API_SECRET_KEY } from "../Config/env.js";
+import { FRONTEND_URL, RAZOR_PAY_API_SECRET_KEY } from "../Config/env.js";
 import { razorpayInstance } from "../Utils/razorPay.js";
 import crypto from "crypto";
 import Payment from "../Models/PaymentModel.js";
@@ -39,7 +39,7 @@ export const paymentVerification = async (req, res) => {
     });
 
     return res.redirect(
-      `https://food-ording-frontend.onrender.com/paymentsuccess?reference=${razorpay_payment_id}`
+      `${FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {
     return res.status(400).json({
