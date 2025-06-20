@@ -8,15 +8,13 @@ const PaymentSuccess = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isPayment = localStorage.getItem("paymentId");
+  // const isPayment = localStorage.getItem("paymentId");
     const customerDetails = JSON.parse(localStorage.getItem("customerDetails"));
 
   
   console.log(customerDetails);
 
-  if (isPayment) {
-    navigate("/");
-  }
+
 
   // Check the current path
   if (location.pathname === "/paymentsuccess") {
@@ -29,8 +27,6 @@ const PaymentSuccess = () => {
 
     if (response?.success) {
       localStorage.removeItem("paymentId");
-    }else{
-       navigate("/");
     }
 
 
