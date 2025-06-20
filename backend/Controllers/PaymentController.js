@@ -29,7 +29,6 @@ export const paymentVerification = async (req, res) => {
     .digest("hex");
 
   if (razorpay_signature === expectedSignature) {
-    console.log("aalekh jeet baat");
 
     // Save payment info
     await Payment.create({
@@ -39,6 +38,7 @@ export const paymentVerification = async (req, res) => {
     });
 
     return res.redirect(
+      // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
       `${FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {

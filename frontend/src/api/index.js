@@ -71,6 +71,8 @@ export const paymentCheckout = async (amount) => {
     amount,
   });
 
+  console.log(data);
+  
   const options = {
     key, // Replace with your Razorpay key_id
     amount: data?.order?.amount,
@@ -78,7 +80,7 @@ export const paymentCheckout = async (amount) => {
     name: "Aalekh",
     description: "Test Transaction learning payment",
     order_id: data?.order?.id,
-    callback_url: "http://localhost:3000/api/payment/paymentverification", // Your success URL
+    callback_url: "https://food-ording-app.onrender.com/api/payment/paymentverification", // Your success URL
     prefill: {
       name: "Aalekh",
       email: "aalekh.kumar@example.com",
