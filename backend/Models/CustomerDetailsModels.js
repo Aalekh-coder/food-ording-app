@@ -14,13 +14,13 @@ const customerDetailsSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    totalAmount:{
-      type:Number,
-      required:true
+    totalAmount: {
+      type: Number,
+      required: true,
     },
-    dilivered:{
-      type:Boolean,
-      default:false
+    dilivered: {
+      type: Boolean,
+      default: false,
     },
     foodItems: [
       {

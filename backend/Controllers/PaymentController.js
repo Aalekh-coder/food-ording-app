@@ -10,7 +10,6 @@ export const checkout = async (req, res) => {
   };
   const order = await razorpayInstance.orders.create(options);
 
-  console.log(order);
 
   return res.status(200).json({
     success: true,
@@ -38,8 +37,8 @@ export const paymentVerification = async (req, res) => {
     });
 
     return res.redirect(
-      // `http://localhost:5173/paymentsuccess?reference=${razorpay_payment_id}`
-      `${FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
+      `https://food-ording-frontend.onrender.com/paymentsuccess?reference=${razorpay_payment_id}`
+      // `${FRONTEND_URL}/paymentsuccess?reference=${razorpay_payment_id}`
     );
   } else {
     return res.status(400).json({

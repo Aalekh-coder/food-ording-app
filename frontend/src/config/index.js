@@ -1,3 +1,5 @@
+
+
 export const foodItems = [
   {
     image: "https://www.secondrecipe.com/wp-content/uploads/2017/08/rajma-chawal-1.jpg",
@@ -61,5 +63,69 @@ export const foodItems = [
     name: "Rajesh Kumar",
     descibe:
       "The food was amazing, and the delivery was on time. The flavors were authentic and delicious. I'm a happy customer!",
+  },
+];
+
+export const customer = {
+  customerName: "Aalekh Kumar",
+  customerPhone: 9876543210,
+  customerLocation: "Udaipur",
+  customerEmail: "aalekh@example.com",
+  paymentStatus: true,
+  totalAmount: 370,
+  dilivered: true,
+  foodItems: [
+    { foodName: "Butter Chicken", quantity: 2 },
+    { foodName: "Rajma Chawal", quantity: 1 }
+  ]
+};
+
+
+import {
+  LayoutDashboard,
+  UtensilsCrossed,
+  ShoppingCart,
+  Users,
+  ReceiptText,
+  Settings,
+  LogOut,
+} from "lucide-react";
+
+
+export const sidebarItems = [
+  {
+    label: "Dashboard",
+    icon: LayoutDashboard,
+    path: "/admin/dashboard",
+  },
+  {
+    label: "Delivered Order",
+    icon: UtensilsCrossed,
+    path: "/admin/completed-order",
+  },
+  {
+    label: "Progress Order",
+    icon: ShoppingCart,
+    path: "/admin/progress-order",
+  },
+  {
+    label: "Customers",
+    icon: Users,
+    path: "/customers",
+  },
+  {
+    label: "Invoices",
+    icon: ReceiptText ,
+    path: "/invoices",
+  },
+  {
+    label: "Settings",
+    icon: Settings,
+    path: "/settings",
+  },
+  {
+    label: "Logout",
+    icon: LogOut,
+    path: "/logout",
   },
 ];

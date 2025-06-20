@@ -60,8 +60,18 @@ export const isPaymentCheckService = async (id)=>{
     console.log(error);
   }
 }
-// Payment
 
+export const getCustomerByIdAdminService = async (id)=>{
+  try {
+    const {data} = await axiosInstance.get(`/api/customer/${id}`);
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+// Payment
 export const paymentCheckout = async (amount) => {
   const {
     data: { key },
@@ -71,25 +81,28 @@ export const paymentCheckout = async (amount) => {
     amount,
   });
 
-  console.log(data);
+    const customerDetails = JSON.parse(localStorage.getItem("customerDetails"));
+
   
   const options = {
-    key, // Replace with your Razorpay key_id
+    key, 
     amount: data?.order?.amount,
     currency: "INR",
-    name: "Aalekh",
+    name: customerDetails?.customerName,
     description: "Test Transaction learning payment",
     order_id: data?.order?.id,
     callback_url: "https://food-ording-app.onrender.com/api/payment/paymentverification", // Your success URL
     prefill: {
-      name: "Aalekh",
-      email: "aalekh.kumar@example.com",
-      contact: "8527713086",
+      name: customerDetails?.customerName,
+      email: customerDetails?.customerEmail,
+      contact: customerDetails?.customerPhone,
     },
     theme: {
       color: "#F37254",
     },
   };
+
+
 
   const rzp = new window.Razorpay(options);
   rzp.open();

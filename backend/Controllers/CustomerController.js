@@ -1,6 +1,5 @@
 import Customer from "../Models/CustomerDetailsModels.js";
 
-
 export const createCustomerNew = async (req, res) => {
   try {
     const {
@@ -10,13 +9,15 @@ export const createCustomerNew = async (req, res) => {
       customerEmail,
       paymentStatus,
       foodItems,
-      totalAmount
+      totalAmount,
     } = req.body;
 
     // Check if customerEmail already exists
     const existingCustomer = await Customer.findOne({ customerEmail });
     if (existingCustomer) {
-      return res.status(400).json({ message: "Customer with this email already exists." });
+      return res
+        .status(400)
+        .json({ message: "Customer with this email already exists." });
     }
 
     const newCustomer = await Customer.create({
@@ -26,7 +27,7 @@ export const createCustomerNew = async (req, res) => {
       customerEmail,
       paymentStatus,
       foodItems,
-      totalAmount
+      totalAmount,
     });
 
     res.status(201).json({
@@ -74,11 +75,12 @@ export const updatePaymentStatusById = async (req, res) => {
   }
 };
 
-
 export const getCustomers = async (req, res) => {
   try {
     // Find all customers in the database
-   const customers = await Customer.find({}).select('_id paymentStatus totalAmount customerPhone customerName');
+    const customers = await Customer.find({}).select(
+      "_id paymentStatus totalAmount customerPhone customerName customerEmail"
+    );
 
     // Send a success response with the list of customers
     res.status(200).json({
@@ -98,6 +100,90 @@ export const getCustomers = async (req, res) => {
   }
 };
 
-export const getCustomersById = async(req,res)=>{
-  
-}
+export const getCustomerById = async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    const customer = await Customer.findById(customerId);
+
+    if (!customer) {
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: customer,
+    });
+  } catch (error) {
+    console.error("Error fetching customer:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching customer",
+    });
+  }
+};
+
+export const getCompletedOrder = async (req, res) => {
+  try {
+    const completedOrderList = await Customer.find({
+      dilivered: true,
+      paymentStatus: true,
+    }).select(
+      "_id paymentStatus totalAmount customerPhone customerName customerEmail"
+    );
+
+    if (completedOrderList) {
+      res.status(200).json({
+        success: true,
+        message: "succesfully fetched",
+        data: completedOrderList,
+      });
+    }else{
+       res.status(500).json({
+      success: false,
+      message: "empty",
+    });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Something went while fetching the completed order",
+    });
+    console.log(error);
+  }
+};
+
+
+export const markAsDelivered = async (req, res) => {
+  try {
+    const { customerId } = req.params;
+
+    const updatedCustomer = await Customer.findByIdAndUpdate(
+      customerId,
+      { dilivered: true },
+      { new: true }
+    );
+
+    if (!updatedCustomer) {
+      return res.status(404).json({
+        success: false,
+        message: "Customer not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Order marked as delivered",
+      data: updatedCustomer,
+    });
+  } catch (error) {
+    console.error("Error updating delivery status:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while updating delivery status",
+    });
+  }
+};

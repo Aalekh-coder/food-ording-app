@@ -6,9 +6,6 @@ import { OrderContext } from "@/context/Order-context";
 import {
   ArrowRight,
   Bike,
-  ShoppingBag,
-  ShoppingCart,
-  Star,
 } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { easeInOut, motion } from "motion/react";
@@ -16,27 +13,10 @@ import { fetchAllFoodItems } from "@/api";
 import FoodCard from "@/components/subcomponents/FoodCard";
 import TestimonialCard from "@/components/subcomponents/TestimonialCard";
 
+
 const Home = () => {
   const { handleAddOrder,foodItemsData} =
     useContext(OrderContext);
-
-
-    
-
-
-  // useEffect(() => {
-  //   const getFoodItems = async () => {
-  //     try {
-  //       const foodItems = await fetchAllFoodItems();
-  //       setfoodItem(foodItems?.data);
-  //     } catch (error) {
-  //       console.error("Error fetching food items:", error);
-  //     }
-  //   };
-
-  //   getFoodItems();
-  // }, []);
-
 
   return (
     <>

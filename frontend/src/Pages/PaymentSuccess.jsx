@@ -9,7 +9,10 @@ const PaymentSuccess = () => {
   const location = useLocation();
 
   const isPayment = localStorage.getItem("paymentId");
-  console.log(isPayment);
+    const customerDetails = JSON.parse(localStorage.getItem("customerDetails"));
+
+  
+  console.log(customerDetails);
 
   if (isPayment) {
     navigate("/");
@@ -30,7 +33,7 @@ const PaymentSuccess = () => {
        navigate("/");
     }
 
-    // console.log(response);
+
   }
 
   useEffect(() => {

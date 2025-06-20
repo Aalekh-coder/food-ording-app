@@ -18,8 +18,7 @@ const PaymentInfo = () => {
   );
 
   async function handlePay() {
-    const response = await paymentCheckout(price);
-    console.log(response);
+    await paymentCheckout(price);
   }
 
   const [name, setName] = useState("");
@@ -45,7 +44,10 @@ const PaymentInfo = () => {
 
     const response = await addCustomerFullDetails(data);
    
-    localStorage.setItem("paymentId",response?.data?._id)
+    localStorage.setItem("paymentId",response?.data?._id);
+    localStorage.setItem("customerDetails", JSON.stringify(data));
+
+
 
     if (response?.success) {
       toast.success(`Thanks ${name} from Masala Story!`);
