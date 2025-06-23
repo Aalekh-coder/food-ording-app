@@ -52,7 +52,7 @@ const PaymentInfo = () => {
     if (response?.success) {
       toast.success(`Thanks ${name} from Masala Story!`);
     } else {
-      toast.error("Something went wrong");
+      toast.error(response?.data?.message);
     }
     setName("");
     setPhone("");

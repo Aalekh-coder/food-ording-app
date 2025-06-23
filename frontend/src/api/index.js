@@ -91,7 +91,9 @@ export const paymentCheckout = async (amount) => {
     name: customerDetails?.customerName,
     description: "Test Transaction learning payment",
     order_id: data?.order?.id,
-    callback_url: "https://food-ording-app.onrender.com/api/payment/paymentverification", // Your success URL
+    // backend url
+    // callback_url: "http://localhost:3000/api/payment/paymentverification",
+    callback_url: "https://food-ording-app.onrender.com/api/payment/paymentverification",
     prefill: {
       name: customerDetails?.customerName,
       email: customerDetails?.customerEmail,

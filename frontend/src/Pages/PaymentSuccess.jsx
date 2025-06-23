@@ -9,12 +9,9 @@ const PaymentSuccess = () => {
   const location = useLocation();
 
   // const isPayment = localStorage.getItem("paymentId");
-    const customerDetails = JSON.parse(localStorage.getItem("customerDetails"));
+  const customerDetails = JSON.parse(localStorage.getItem("customerDetails"));
 
-  
   console.log(customerDetails);
-
-
 
   // Check the current path
   if (location.pathname === "/paymentsuccess") {
@@ -27,9 +24,8 @@ const PaymentSuccess = () => {
 
     if (response?.success) {
       localStorage.removeItem("paymentId");
+      localStorage.removeItem("customerDetails");
     }
-
-
   }
 
   useEffect(() => {
